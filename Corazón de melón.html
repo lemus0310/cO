@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre con Corazón y Flores</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #d8b9ff, #f3c4fb);
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
+        }
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #c59aff;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s;
+        }
+        .flap {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100px;
+            background: #a67be9;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transition: transform 0.5s;
+        }
+        .envelope:hover .flap {
+            transform: rotateX(180deg);
+        }
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            width: 220px;
+            height: 170px;
+            background: #ff78a3;
+            clip-path: path('M 110,15 C 160,-30 230,50 110,190 C -10,50 60,-30 110,15');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 7px;
+            font-weight:  bold  ;
+            text-align:center ;
+            padding: 10px;
+            opacity: 0;
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .envelope:hover .heart {
+            opacity: 1;
+            transform: translateY(-100px);
+        }
+        .flowers {
+            position: absolute;
+            bottom: -100px;
+            display: flex;
+            gap: 15px;
+        }
+        .flower {
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #ffaad3, #ff6f91);
+            border-radius: 50%;
+            position: relative;
+            animation: bloom 2s infinite alternate ease-in-out;
+        }
+        .flower::before, .flower::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #ffaad3, #ff6f91);
+            border-radius: 50%;
+        }
+        .flower::before {
+            top: -25px;
+            left: 12px;
+        }
+        .flower::after {
+            top: 12px;
+            left: -25px;
+        }
+        @keyframes bloom {
+            from { transform: scale(0.8); }
+            to { transform: scale(1.2); }
+        }
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .heart-anim {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ff78a3;
+            clip-path: path('M 15,5 C 25,-5 35,15 15,35 C -5,15 5,-5 15,5');
+            opacity: 0.7;
+            animation: float 5s infinite linear;
+        }
+        @keyframes float {
+            from {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(-10vh) translateX(20px);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts"></div>
+    <div class="envelope">
+        <div class="flap"></div>
+        <div class="heart">Hola preciosa, la quiero mucho 💜, <br>gracias por todo <br>me gusta mucho
+        </div>
+    </div>
+    <div class="flowers">
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+    </div>
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-anim');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.querySelector('.hearts').appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 150); // Más corazones
+    </script>
+</body>
+</html>
